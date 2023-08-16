@@ -4,21 +4,29 @@ SYNCTEX:=1
 
 TEXVERSIONS=$(shell ls /usr/local/texlive/ | fgrep -v texmf-local)
 
-B:=template
-F:=-time -shell-escape -synctex=$(SYNCTEX) -output-format=pdf -file-line-error $(FLAGS)
+B:=main
+F:=-time -shell-escape -synctex=$(SYNCTEX) -output-format=pdf -output-directory=output -file-line-error $(FLAGS)
 T:=$(B).pdf
 S:=$(B).tex
 L:=latexmk $(F)
 V:=open -a skim
 
-ZIPFILES:=NOVAthesisFiles Bibliography Config Chapters LICENSE Makefile novathesis.cls README.md .gitignore template.tex latexmkrc
+ZIPFILES:=NOVAthesisFiles bibliography config chapters LICENSE Makefile novathesis.cls README.md .gitignore main.tex latexmkrc
 VERSION:=$(shell head -1 NOVAthesisFiles/nt-version.sty | sed -e 's/.*{//' -e 's/\(.*\)./\1/')
 DATE:=$(shell tail -1 NOVAthesisFiles/nt-version.sty | sed -e 's/.*{//' -e 's/\(.*\)./\1/' | tr '\n' '@'m| sed -e 's/\(.*\)./\1/')
 ZIPTARGET:=$(B)-$(VERSION)@$(DATE).zip
-AUXFILES:=$(shell ls $(B)*.* | fgrep -v .tex | fgrep -v $(B).pdf | sed 's: :\\ :g' | sed 's:(:\\(:g' | sed 's:):\\):g')
+PDF_OUTP = output/main.pdf
+
+copy_pdf: $(PDF_OUTP)
+	cp $(PDF_OUTP) .
+
+DIRS:= . output
+define CLEAN_FILES
+$(shell cd $1 && ls $(B)*.* | fgrep -v .tex | fgrep -v $(B).pdf | sed 's: :\\ :g' | sed 's:(:\\(:g' | sed 's:):\\):g')
+endef
 
 LUA="other/esep uminho/ea uminho/ec uminho/ed uminho/ee uminho/eeg uminho/elach uminho/em uminho/ep uminho/ese uminho/ics uminho/ie uminho/i3b"
-SCHL=$(shell grep -v "^%" Config/1_novathesis.tex | grep "ntsetup{school=" | cut -d "=" -f 2 | cut -d "}" -f 1)
+SCHL=$(shell grep -v "^%" config/1_novathesis.tex | grep "ntsetup{school=" | cut -d "=" -f 2 | cut -d "}" -f 1)
 ifeq ($(SCHL),)
 	SCHL=nova/fct
 endif
@@ -29,7 +37,7 @@ endif
 default:
 	@echo SCHL=$(SCHL)
 ifeq ($(findstring $(SCHL),$(LUA)),)
-	make pdf
+	make lua
 else
 	make xe
 endif
@@ -39,11 +47,11 @@ $(T): $(S)
 	$(MAKE)
 
 .PHONY: pdf
-pdf: $(S)
+pdf: $(S) copy_pdf
 	$(L) -pdf $(SILENT) $(B)
 
 .PHONY: xe lua
-xe lua: $(S)
+xe lua: $(S) copy_pdf
 	$(L) -pdf$@ $(SILENT) $(B)
 
 .PHONY: v view
@@ -68,12 +76,12 @@ mik:
 .PHONY: zip
 zip:
 	rm -f "$(ZIPTARGET)"
-	zip --exclude .github --exclude .git -r "$(ZIPTARGET)" $(ZIPFILES)
+	zip --exclude .github --exclude .git --exclude .vscode -r "$(ZIPTARGET)" $(ZIPFILES)
 
 .PHONY: clean
 clean:
 	@$(L) -c $(B)
-	@rm -f $(AUXFILES) "*(1)*"
+	@$(foreach dir, $(DIRS), rm -f $(addprefix $(dir)/, $(call CLEAN_FILES, $(dir))) "$(dir)/*(1)*";)
 	@find . -name .DS_Store -o -name '_minted*' -print0 | xargs -0 rm -rf
 
 gclean:

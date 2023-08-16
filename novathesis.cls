@@ -1,4 +1,4 @@
-%!TEX root=template.tex
+%!TEX root=main.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% novathesis.cls
 %% NOVA thesis document class
@@ -40,14 +40,14 @@
 %%      If you use this template, please be kind and cite it in your bibliography:
 %%           “João M. Lourenço, The NOVAthesis \LaTeX\ Template User’s Manual,
 %%            NOVA University Lisbon, 2021,
-%%            https://github.com/joaomlourenco/novathesis/raw/main/template.pdf.”
+%%            https://github.com/joaomlourenco/novathesis/raw/main/main.pdf.”
 %%      The BibTeX entry is already in the exxample “bibliography.bib” file:
 %%           @Manual{novathesis-manual,
 %%              title       ={{The NOVAthesis \LaTeX\ Template User's Manual}},
 %%              author      ={João M. Lourenço},
 %%              organization={NOVA University Lisbon},
 %%              year        ={2021},
-%%              url         ={https://github.com/joaomlourenco/novathesis/raw/main/template.pdf},
+%%              url         ={https://github.com/joaomlourenco/novathesis/raw/main/main.pdf},
 %%           }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -77,10 +77,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  MEMOIR CUSTOMIZATION AND LOADING
 %%      Please open and edit the appropriate
-%%       configuration file “Config/0_memoir.tex”
+%%       configuration file config/0_memoir.tex”
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand*{\ntmemoirsetup}[1]{\PassOptionsToClass{#1}{memoir}}
-\input{Config/0_memoir}
+\input{config/0_memoir}
 \LoadClass{memoir}
 \OnehalfSpacing% One-and-half spacing
 
@@ -110,7 +110,7 @@
 
 %%%%% Configure Graphics
 \RequirePackage[nobeamer]{graphbox}% improved version of "graphicx"
-\graphicspath{{Chapters/Figures/}}
+\graphicspath{{figures/}}
 \DeclareGraphicsExtensions{.pdf,.png,.tif,.jpg}
 \providecommand*\appendtographicspath[1]{\xappto\Ginput@path{#1}}
 \providecommand*\prependtographicspath[1]{\xpreto\Ginput@path{#1}}
@@ -390,18 +390,18 @@
 %% MANAGE FOLDERS PER CLASS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \options{/@nt/folders/.new choice={
-  bib=Bibliography,
+  bib=bibliography,
   copyright=.,
   statement=.,
-  dedicatory=Chapters,
-  acknowledgements=Chapters,
-  quote=Chapters,
-  abstract=Chapters,
-  glossaries=Chapters,
-  chapter=Chapters,
-  appendix=Chapters,
-  annex=Chapters,
-  cover=Chapters,
+  dedicatory=chapters,
+  acknowledgements=chapters,
+  quote=chapters,
+  abstract=chapters,
+  glossaries=chapters,
+  chapter=chapters,
+  appendix=chapters,
+  annex=chapters,
+  cover=chapters,
 }}
 
 
@@ -708,9 +708,9 @@
 %============================================================
 %  TEMPLATE CUSTOMIZATION / OPTIONS
 %      Please open and edit the appropriate
-%       configuration file “Config/1_novathesis.tex”
+%       configuration file "config/1_novathesis.tex”
 %============================================================
-\input{Config/1_novathesis}
+\input{config/1_novathesis}
 \def\@DOCTYPE{\option{/novathesis/doctype}}
 \def\@DOCSTATUS{\option{/novathesis/docstatus}}
 
@@ -741,9 +741,9 @@
 %============================================================
 % BIBLATEX CUSTOMIZATION
 %      Please open and edit the appropriate
-%       configuration file “Config/2_biblatex.tex”
+%       configuration file “config/2_biblatex.tex”
 %============================================================
-\input{Config/2_biblatex}
+\input{config/2_biblatex}
 % \NTRunHook{biblatex}
 
 
@@ -1208,11 +1208,11 @@
 
 %============================================================
 %  UNIVERSITY/SCHOOL SPECIFIC MATERIALS
-%  configuration file “Config/9_<university>_<school>.tex”
+%  configuration file “config/9_<university>_<school>.tex”
 %============================================================
-\IfFileExists{Config/9_\@UNIV_\@SCHL.tex}
-     {\def\@ntsetuplevel{\@UNIV/\@SCHL/}\input{Config/9_\@UNIV_\@SCHL.tex}}
-     {\def\@ntsetuplevel{\@UNIV/}\InputIfFileExists{Config/9_\@UNIV.tex}{}{}}
+\IfFileExists{config/9_\@UNIV_\@SCHL.tex}
+     {\def\@ntsetuplevel{\@UNIV/\@SCHL/}\input{config/9_\@UNIV_\@SCHL.tex}}
+     {\def\@ntsetuplevel{\@UNIV/}\InputIfFileExists{config/9_\@UNIV.tex}{}{}}
 \def\@ntsetuplevel{}
 
 \InputIfFileExists{NOVAthesisFiles/Schools/\@UNIV/\@UNIV-defaults.ldf}{}
@@ -1264,9 +1264,9 @@
 %============================================================
 %  THESIS/DISSERTATION COVER DATA (title, author, etc)
 %   Please open and edit the appropriate
-%       configuration file “Config/3_cover.tex”
+%       configuration file “config/3_cover.tex”
 %============================================================
-\input{Config/3_cover}
+\input{config/3_cover}
 % \NTRunHook{cover}
 
 % Patch month from number to string in the proper language
@@ -1282,28 +1282,28 @@
 %============================================================
 %  THESIS/DISSERTATION FILES
 %   Please open and edit the appropriate
-%       configuration file “Config/4_files.tex”
+%       configuration file “config/4_files.tex”
 %============================================================
-\input{Config/4_files}
+\input{config/4_files}
 % \NTRunHook{files}
 
 %============================================================
 % ADDITIONAL PACKAGES and MACROS
 %      Please open and edit the appropriate
-%       configuration file “Config/8_packages.tex”
+%       configuration file “config/8_packages.tex”
 %============================================================
 % \newcommand{\BeforeHyperref}[1]{\NTAddToHook{packages/pre}{#1}}
 % \newcommand{\AfterHyperref}[1]{\NTAddToHook{packages/post}{#1}}
 % \NTRunHook{packages/pre}
-\AtEndPreamble{\input{Config/5_packages}}
+\AtEndPreamble{\input{config/5_packages}}
 % \NTRunHook{packages/post}
 
 %============================================================
 %  WHICH LIST_OF TO PRINT
 %   Please open and edit the appropriate
-%       configuration file “Config/6_list_of.tex”
+%       configuration file “config/6_list_of.tex”
 %============================================================
-\AtEndPreamble{\makeatletter\NTRunHook{list_of/pre}\input{Config/6_list_of}\NTRunHook{list_of/post}}
+\AtEndPreamble{\makeatletter\NTRunHook{list_of/pre}\input{config/6_list_of}\NTRunHook{list_of/post}}
 
 \setcounter{biburlnumpenalty}{100}% Allow to break DOIs in bibliography
 \optionlistdo{/@nt/file/bib/\@DOCTYPE}{%

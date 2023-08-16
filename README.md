@@ -95,11 +95,11 @@ The [“*novathesis*” LaTeX template](https://joaomlourenco.github.io/novathes
 	* Cloning the [GitHub repository](https://github.com/joaomlourenco/novathesis) with <kbd>git clone --depth=1 https://github.com/joaomlourenco/novathesis.git</kbd>; or
 	* Downloading the [latest version from the GitHub repository as a Zip file](https://github.com/joaomlourenco/novathesis/archive/main.zip)
 3. Compile the document with you favorite LaTeX processor (pdfLaTeX, XeLaTeX or LuaLaTeX):
-	* The main file is named “*template.tex*”.
+	* The main file is named “*main.tex*”.
 	* Either load it in your favorite [LaTeX text editor](https://en.wikipedia.org/wiki/Comparison_of_TeX_editors) or compile it in the terminal with
 <kbd>latexmk -shell-escape -file-line-error  -pdf template</kbd>.  If you use a LaTeX text editor, please notice that the NOVAthesis template uses `biber`and not `bibtex` to process the bibliography, which means that most probably you have to open the _Editor Preferences_ and somewhere (depends on the Editor) change `bibtex`to `biber`.
-	* If Murphy is elsewhere, LaTeX will create the file “`template.pdf`”, which you may open with your favorite PDF viewer.
-4. Edit the files in the “*Config*” folder:
+	* If Murphy is elsewhere, LaTeX will create the file “`main.pdf`”, which you may open with your favorite PDF viewer.
+4. Edit the files in the “*config*” folder:
 
 | File                      | Contents                                                           |
 |---------------------------|--------------------------------------------------------------------|
@@ -131,7 +131,7 @@ The [“*novathesis*” LaTeX template](https://joaomlourenco.github.io/novathes
 2. Login to your favorite LaTeX cloud service.  I recommend [Overleaf](https://www.overleaf.com?r=f5160636&rm=d&rs=b) but there are alternatives (these instructions apply to Overleaf  and you'll have to adapt for other providers).
 3. In the menu select <kbd>New project</kbd>-><kbd>Upload project</kbd>
 4. Upload the zip with all the "novathesis" files.
-5. Select “*template.tex*” as the main file.
+5. Select “*main.tex*” as the main file.
 6. Follow from [step 3 above](#with-a-local-latex-installation)
 
 --------
@@ -168,7 +168,7 @@ This template is the result of hundreds (yes! *hundreds*) of hours of work from 
               author       = "João M. Lourenço",
               organization = "NOVA University Lisbon",
               year         = "2021",
-              url          = "https://github.com/joaomlourenco/novathesis/raw/main/template.pdf",
+              url          = "https://github.com/joaomlourenco/novathesis/raw/main/main.pdf",
          }
 
 1.  [**Make a small donation**](https://paypal.me/novathesis). We will [keep a list thanking to all the identified donors](https://github.com/joaomlourenco/novathesis/wiki#-donations) that identify themselves in the “*Add special instructions to the seller:*” box.
